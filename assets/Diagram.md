@@ -1,31 +1,32 @@
-Schemat działania
+# Schemat działania
 
-                         ┌─────────────────────┐
-                         │       DISCORD       │
-                         │                     │
-                         │ /plan               │
-                         │ /gra                │
-                         │ /log                │
-                         │ /xayoo              │
-                         └──────────┬──────────┘
-                                    │
-                                    │ POST /discord
-                                    ▼
-                         ┌─────────────────────┐
-                         │  CLOUDFLARE WORKER  │
-                         │                     │
-                         │      worker.js      │
-                         └──────────┬──────────┘
-                                    │
-                ┌───────────────────┼───────────────────┐
-                │                   │                   │
-                ▼                   ▼                   ▼
-        ┌──────────────┐    ┌──────────────┐    ┌──────────────┐
-        │   plan.js    │    │  steam.js    │    │   ttv.js     │
-        │              │    │              │    │              │
-        │ /plan        │    │ /steam       │    │ /log         │
-        │ /zmiana      │    │ /gra         │    │ Twitch       │
-        └──────┬───────┘    └──────────────┘    └──────────────┘
+```text
+                       ┌─────────────────────┐
+                       │       DISCORD       │
+                       │                     │
+                       │ /plan               │
+                       │ /gra                │
+                       │ /log                │
+                       │ /xayoo              │
+                       └──────────┬──────────┘
+                                  │
+                                  │ POST /discord
+                                  ▼
+                       ┌─────────────────────┐
+                       │  CLOUDFLARE WORKER  │
+                       │                     │
+                       │      worker.js      │
+                       └──────────┬──────────┘
+                                  │
+                ┌─────────────────┼─────────────────┐
+                │                 │                 │
+                ▼                 ▼                 ▼
+        ┌──────────────┐  ┌──────────────┐  ┌──────────────┐
+        │   plan.js    │  │   steam.js   │  │    ttv.js    │
+        │              │  │              │  │              │
+        │ /plan        │  │ /steam       │  │ /log         │
+        │ /zmiana      │  │ /gra         │  │ Twitch       │
+        └──────┬───────┘  └──────────────┘  └──────────────┘
                │
                │
                ▼
@@ -47,6 +48,8 @@ Schemat działania
         │ PLAN_CHANNEL_ID_1   │
         │ PLAN_CHANNEL_ID_2   │
         └─────────────────────┘
+
+
 ┌─────────────────────┐
 │   STREAM ELEMENTS   │
 │                     │
@@ -78,12 +81,12 @@ Schemat działania
               │ !zmiana
               ▼
        ┌─────────────────────────┐
-       │         DISCORD         │
+       │          DISCORD        │
        │                         │
        │ @everyone               │
        │ Plan został zmieniony   │
        │ przez: *nick*           │
-       │ **tekst**                │
+       │ **tekst**               │
        │                         │
        │ ┌─────────────────────┐ │
        │ │ PLAN_CHANNEL_ID_1   │ │
@@ -92,90 +95,109 @@ Schemat działania
        │ │ PLAN_CHANNEL_ID_2   │ │
        │ └─────────────────────┘ │
        └─────────────────────────┘
+```
 
-Przepływ zmiany planu
+# Przepływ zmiany planu
 
-Discord:
+## Discord
 
+```text
 /plan tekst
-      │
-      ▼
+     │
+     ▼
 Cloudflare Worker
-      │
-      ├──► KV PARIS → zapis planu
-      │
-      └──► Discord
-             │
-             ├──► PLAN_CHANNEL_ID_1
-             └──► PLAN_CHANNEL_ID_2
+     │
+     ├──► KV PARIS → zapis planu
+     │
+     └──► Discord
+              │
+              ├──► PLAN_CHANNEL_ID_1
+              └──► PLAN_CHANNEL_ID_2
+```
 
 Wiadomość:
 
+```text
 @everyone
+
 **tekst**
+```
 
-StreamElements:
+## StreamElements
 
+```text
 !zmiana tekst
-      │
-      ▼
+     │
+     ▼
 /zmiana?secret=MODERATOR_SECRET
-      │
-      ▼
+     │
+     ▼
 Cloudflare Worker
-      │
-      ├──► sprawdzenie MODERATOR_SECRET
-      │
-      ├──► KV PARIS → zapis planu
-      │
-      └──► Discord
-             │
-             ├──► PLAN_CHANNEL_ID_1
-             └──► PLAN_CHANNEL_ID_2
+     │
+     ├──► sprawdzenie MODERATOR_SECRET
+     │
+     ├──► KV PARIS → zapis planu
+     │
+     └──► Discord
+              │
+              ├──► PLAN_CHANNEL_ID_1
+              └──► PLAN_CHANNEL_ID_2
+```
 
 Wiadomość:
 
+```text
 @everyone
+
 Plan został zmieniony przez: *nick*
+
 **tekst**
+```
 
-Przepływ komendy Steam
+# Przepływ komendy Steam
 
+## Discord
+
+```text
 Discord /gra
-      │
-      ▼
+     │
+     ▼
 Cloudflare Worker
-      │
-      ▼
+     │
+     ▼
 steam.js
-      │
-      ▼
+     │
+     ▼
 Steam
-      │
-      ▼
+     │
+     ▼
 informacje o grze
-      │
-      ▼
+     │
+     ▼
 Discord
+```
 
-StreamElements działa analogicznie:
+## StreamElements
 
+```text
 !gra nazwa gry
-      │
-      ▼
+     │
+     ▼
 /steam?game=nazwa%20gry
-      │
-      ▼
+     │
+     ▼
 steam.js
-      │
-      ▼
+     │
+     ▼
 Steam
-      │
-      ▼
+     │
+     ▼
 StreamElements
+```
 
-Główne elementy systemu
+# Główne elementy systemu
 
+```text
 ┌─────────────────────────────────────────────┐
 │                 BakuBot                     │
 ├─────────────────────────────────────────────┤
@@ -209,3 +231,4 @@ Główne elementy systemu
 │   └── PLAN_CHANNEL_ID_2                     │
 │                                             │
 └─────────────────────────────────────────────┘
+```
