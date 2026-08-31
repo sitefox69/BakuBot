@@ -18,7 +18,7 @@
 - Wyszukiwanie logów wiadomości użytkowników Twitcha
 - Sprawdzanie czasu oglądania streamera
 - Integracja z Discordem, StreamElements i Twitch
-- Integracja z [xayoo.pl](xayoo.pl)
+- Integracja z [xayoo.pl](https://www.xayo.pl)
 ## [Schemat działania](assets/Diagram.md)
 
 Chcesz uruchomić BakuBot na swoim serwerze?  
