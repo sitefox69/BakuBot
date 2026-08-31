@@ -13,7 +13,7 @@
 - Automatyczne powiadomienie `@everyone`
 - Informacja o osobie, która zmieniła plan
 - Obsługa wielu serwerów Discord
-- Integracja z [xayoo.pl](https://www.xayo.pl)
+- Integracja z [Xayoo.pl](https://www.xayo.pl)
 - Obsługa wielu kanałów powiadomień Discord
 - Informacje o grach ze Steam
 - Wyszukiwanie logów wiadomości użytkowników Twitcha
