@@ -21,8 +21,6 @@
 
 ## [Schemat działania](assets/Diagram.md)
 
-## Instalacja
-
 Chcesz uruchomić BakuBot na swoim serwerze?  
 Pełna instrukcja instalacji i konfiguracji znajduje się tutaj:
 
