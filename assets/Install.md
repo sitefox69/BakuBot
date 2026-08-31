@@ -226,5 +226,4 @@ Endpoint zwróci informacje o tym, które elementy konfiguracji są ustawione.
 
 # Gotowe
 
-![Zdjęcie](assets/IMG_7160.png)
 
