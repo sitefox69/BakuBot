@@ -317,6 +317,6 @@ Endpoint zwróci informacje o tym, które elementy konfiguracji są ustawione.
 
 > Nie udostępniaj publicznie wyników zawierających informacje o swojej konfiguracji.
 
-# Gotowe
+# [Gotowe](https://github.com/sitefox69/BakuBot)
 
 ![Zdjęcie](IMG_7178.png)
