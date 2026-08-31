@@ -57,5 +57,5 @@ StreamElements
 Dzięki temu Worker stanowi wspólny punkt dla Discorda i StreamElements, ale oba systemy komunikują się z Workerem niezależnie.
 
 
-# [Instalacja i konfiguracja](install.md)
+# [Instalacja i konfiguracja](Install.md)
 
