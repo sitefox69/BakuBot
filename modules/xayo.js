@@ -1,4 +1,4 @@
-const XAYO_BASE_URL =
+const XAYO_BASE_URL = 
   "https://www.xayo.pl/api/chatters";
 
 function formatWatchtime(minutes) {
