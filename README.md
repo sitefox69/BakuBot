@@ -6,56 +6,23 @@
 
 # Najważniejsze funkcje
 
-* Zmiana planu z poziomu Discorda
-* Zmiana planu przez StreamElements
-* Odczyt aktualnego planu na Twitchu
-* Automatyczne powiadomienia na Discordzie
-* Powiadomienie `@everyone`
-* Informacja o osobie, która zmieniła plan
-* Obsługa wielu serwerów Discord
-* Obsługa wielu kanałów powiadomień Discord
-* Obsługa informacji o grach ze Steam
-* Wyszukiwanie logów wiadomości użytkowników Twitcha
+- Zmiana planu z poziomu Discorda
+- Zmiana planu przez StreamElements
+- Automatyczne zapisywanie i synchronizacja planu
+- Automatyczne powiadomienia na Discordzie
+- Automatyczne powiadomienie `@everyone`
+- Informacja o osobie, która zmieniła plan
+- Obsługa wielu serwerów Discord
+- Obsługa wielu kanałów powiadomień Discord
+- Informacje o grach ze Steam
+- Wyszukiwanie logów wiadomości użytkowników Twitcha
+- Sprawdzanie czasu oglądania streamera
+- Integracja z Discordem, StreamElements i Twitch
 
-## Schemat działania
-```text
-                         ┌──────────────┐
-                         │   DISCORD    │
-                         └──────┬───────┘
-                                │
-                                │ żądania/interakcje
-                                ▼
-                    ┌──────────────────────┐
-                    │        WORKER        │
-                    │      Cloudflare      │
-                    └───────┬───────┬──────┘
-                            │       │
-              ┌─────────────┘       └─────────────┐
-              │                                   │
-              ▼                                   ▼
-     ┌─────────────────┐                 ┌─────────────────┐
-     │   DANE/LOGIKA   │                 │ STREAMELEMENTS  │
-     │      BOTA       │                 │     /TWITCH     │
-     └─────────────────┘                 └─────────────────┘
-              ▲                                   │
-              │                                   │
-              └──────────── odpowiedź ────────────┘
-```
-## Powiadomienia
-W określonych sytuacjach Worker może również wysłać wiadomość na Discorda: 
-```text
-StreamElements
-       │
-       ▼
-    Worker
-       │
-       ├──────► zapis / przetworzenie danych
-       │
-       └──────► powiadomienie Discord
-```
+## [Schemat działania](assets/Diagram.md)
 
-Dzięki temu Worker stanowi wspólny punkt dla Discorda i StreamElements, ale oba systemy komunikują się z Workerem niezależnie.
-
+Chcesz uruchomić BakuBot na swoim serwerze?  
+Pełna instrukcja instalacji i konfiguracji znajduje się tutaj:
 
 # [Instalacja i konfiguracja](assets/Guide.md)
 
