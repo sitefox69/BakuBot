@@ -13,12 +13,12 @@
 - Automatyczne powiadomienie `@everyone`
 - Informacja o osobie, która zmieniła plan
 - Obsługa wielu serwerów Discord
+- Integracja z [xayoo.pl](https://www.xayo.pl)
 - Obsługa wielu kanałów powiadomień Discord
 - Informacje o grach ze Steam
 - Wyszukiwanie logów wiadomości użytkowników Twitcha
-- Sprawdzanie czasu oglądania streamera
 - Integracja z Discordem, StreamElements i Twitch
-- Integracja z [xayoo.pl](https://www.xayo.pl)
+  
 ## [Schemat działania](assets/Diagram.md)
 
 Chcesz uruchomić BakuBot na swoim serwerze?  
