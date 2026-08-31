@@ -1,5 +1,3 @@
-![Zdjęcie](assets/IMG_7160.png)
-
 # Wymagania
 
 Przed rozpoczęciem przygotuj:
@@ -228,4 +226,4 @@ Endpoint zwróci informacje o tym, które elementy konfiguracji są ustawione.
 
 # Gotowe
 
-
+![Zdjęcie](IMG_7178.png)
