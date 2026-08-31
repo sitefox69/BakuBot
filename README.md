@@ -59,3 +59,4 @@ Dzięki temu Worker stanowi wspólny punkt dla Discorda i StreamElements, ale ob
 
 # [Instalacja i konfiguracja](assets/Guide.md)
 
+![Zdjęcie](assets/IMG_7186.png)
