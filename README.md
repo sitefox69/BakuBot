@@ -2,7 +2,7 @@
 
 ![Zdjęcie](assets/IMG_7190.png)
 
-## Oficjalna strona [Bota](https://sitefox.gitbook.io/bakubot-1)
+## Oficjalna strona [Bota](https://sitefox.gitbook.io/bakubot-1) _jeszcze nie zaktualizowana._
 
 # Najważniejsze funkcje
 
