@@ -1,3 +1,5 @@
+![Zdjęcie](assets/IMG_7160.png)
+
 # Wymagania
 
 Przed rozpoczęciem przygotuj:
