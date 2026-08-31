@@ -41,6 +41,7 @@
               │                                   │
               └──────────── odpowiedź ────────────┘
 ```
+## Powiadomienia
 W określonych sytuacjach Worker może również wysłać wiadomość na Discorda: 
 ```text
 StreamElements
