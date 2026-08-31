@@ -1,6 +1,6 @@
 # BakuBot Open Source
 
-![Zdjęcie](assets/IMG_7160.png)
+![Zdjęcie](assets/IMG_7190.png)
 
 ## Oficjalna strona [Bota](https://sitefox.gitbook.io/bakubot-1)
 
