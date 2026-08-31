@@ -90,7 +90,7 @@ async function getWatchtime(
 
 function formatTop3(data) {
   const medals = [
-    "🥇",
+    "•🥇",
     "🥈",
     "🥉",
   ];
@@ -99,9 +99,9 @@ function formatTop3(data) {
     .slice(0, 3)
     .map(
       (user, index) =>
-        `${medals[index]}${user.streamerName} (${formatWatchtime(user.minutes)})`
+        `${medals[index]} ${user.streamerName} (${formatWatchtime(user.minutes)})`
     )
-    .join("\n");
+    .join(" \n•");
 }
 
 function findViewer(
