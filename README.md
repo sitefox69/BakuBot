@@ -19,44 +19,7 @@
 - Sprawdzanie czasu oglądania streamera
 - Integracja z Discordem, StreamElements i Twitch
 
-## Schemat działania
-```text
-                         ┌──────────────┐
-                         │   DISCORD    │
-                         └──────┬───────┘
-                                │
-                                │ żądania/interakcje
-                                ▼
-                    ┌──────────────────────┐
-                    │        WORKER        │
-                    │      Cloudflare      │
-                    └───────┬───────┬──────┘
-                            │       │
-              ┌─────────────┘       └─────────────┐
-              │                                   │
-              ▼                                   ▼
-     ┌─────────────────┐                 ┌─────────────────┐
-     │   DANE/LOGIKA   │                 │ STREAMELEMENTS  │
-     │      BOTA       │                 │     /TWITCH     │
-     └─────────────────┘                 └─────────────────┘
-              ▲                                   │
-              │                                   │
-              └──────────── odpowiedź ────────────┘
-```
-## Powiadomienia
-W określonych sytuacjach Worker może również wysłać wiadomość na Discorda: 
-```text
-StreamElements
-       │
-       ▼
-    Worker
-       │
-       ├──────► zapis / przetworzenie danych
-       │
-       └──────► powiadomienie Discord
-```
-
-Dzięki temu Worker stanowi wspólny punkt dla Discorda i StreamElements, ale oba systemy komunikują się z Workerem niezależnie.
+## [Schemat działania](assets/Diagram.md)
 
 
 # [Instalacja i konfiguracja](assets/Guide.md)
