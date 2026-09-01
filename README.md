@@ -24,7 +24,7 @@ Forki i projekty bazujące na kodzie BakuBota nie powinny być przedstawiane jak
 
 Pełna dokumentacja oraz informacje dotyczące BakuBota:
 
-**[Dokumentacja BakuBot](link)**
+**[Dokumentacja BakuBot]([link](https://sitefox.gitbook.io/bakubot-1))**
 
 > **Uwaga:** dokumentacja jest obecnie w trakcie aktualizacji.
 
@@ -64,7 +64,7 @@ BakuBot łączy kilka usług w jeden system, automatyzując przepływ informacji
 
 Szczegółowy schemat działania znajduje się tutaj:
 
-**[Schemat działania](link)**
+**[Schemat działania](assets/Diagram.md)**
 
 ---
 # Wymagania
@@ -85,7 +85,7 @@ Chcesz uruchomić BakuBot na swoim serwerze?
 
 Pełna instrukcja instalacji, konfiguracji oraz wymaganych ustawień znajduje się tutaj:
 
-**[Instalacja i konfiguracja](link)**
+**[Instalacja i konfiguracja](assets/Guide.md)**
 
 ![Zdjęcie](assets/IMG_7186.png)
 
@@ -123,6 +123,7 @@ Pełny tekst licencji znajduje się w pliku:
 
 ## Copyright
 
+```
 Copyright © 2026 sitefox69
 
 BakuBot jest wolnym oprogramowaniem udostępnianym na warunkach licencji GNU General Public License v3.0.
