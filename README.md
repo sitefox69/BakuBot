@@ -27,3 +27,16 @@ Pełna instrukcja instalacji i konfiguracji znajduje się tutaj:
 # [Instalacja i konfiguracja](assets/Guide.md)
 
 ![Zdjęcie](assets/IMG_7186.png)
+
+
+## License
+
+BakuBot is licensed under the GNU General Public License v3.0.
+
+See the [LICENSE](LICENSE) file for details.
+
+## Copyright
+
+Copyright © 2026 sitefox69
+
+BakuBot is free software licensed under the GNU General Public License v3.0.
