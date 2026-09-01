@@ -24,7 +24,7 @@ Forki i projekty bazujące na kodzie BakuBota nie powinny być przedstawiane jak
 
 Pełna dokumentacja oraz informacje dotyczące BakuBota:
 
-**[Dokumentacja BakuBot]([link](https://sitefox.gitbook.io/bakubot-1))**
+**[Dokumentacja BakuBot](https://sitefox.gitbook.io/bakubot-1)**
 
 > **Uwaga:** dokumentacja jest obecnie w trakcie aktualizacji.
 
