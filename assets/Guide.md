@@ -1,3 +1,15 @@
+### Uwaga dotycząca VS Code / TypeScript
+
+Jeżeli podczas edycji plików `.js` w VS Code pojawi się czerwone podkreślenie przy przekazywaniu `ctx` lub komunikat:
+
+`Expected 0-2 arguments, but got 3. (ts2554)`
+
+nie oznacza to automatycznie błędu Workera. Jest to ostrzeżenie analizy typów JavaScript/TypeScript w VS Code.
+
+W niektórych modułach funkcja `handle()` może przyjmować dwa argumenty, podczas gdy Worker przekazuje dodatkowo `ctx`. JavaScript pozwala na przekazanie dodatkowego argumentu, który zostanie po prostu zignorowany przez funkcję, która go nie używa.
+
+Jeżeli Worker poprawnie się wdraża i funkcje bota działają, samo czerwone podkreślenie w VS Code nie oznacza problemu z działaniem aplikacji.
+
 ![Zdjęcie](IMG_7189.png)
 
 # Wymagania
