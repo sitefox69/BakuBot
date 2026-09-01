@@ -1,30 +1,125 @@
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
+
 # BakuBot
-**Open Source**
 
 ![Zdjęcie](assets/IMG_7190.png)
 
-## Oficjalna strona [Bota](https://sitefox.gitbook.io/bakubot-1) _jeszcze nie zaktualizowana._
+BakuBot to bot integrujący Discord, Twitch oraz StreamElements, którego celem jest automatyzacja zarządzania informacjami i komunikacją społeczności streamera.
 
-# Najważniejsze funkcje
+Projekt pozwala m.in. na zarządzanie planem streamów, automatyczne wysyłanie powiadomień oraz pobieranie wybranych informacji związanych z **Twitch**, **Steam** oraz **Xayo.pl**.
 
-- Zmiana planu z poziomu Discorda
-- Zmiana planu przez StreamElements
-- Automatyczne zapisywanie i synchronizacja planu
+---
+
+## Oficjalny projekt
+
+To repozytorium jest oficjalnym repozytorium projektu BakuBot.
+
+Nazwa BakuBot, logo oraz pozostałe elementy brandingu projektu nie są objęte licencją GPL-3.0, chyba że wyraźnie zaznaczono inaczej.
+
+Forki i projekty bazujące na kodzie BakuBota nie powinny być przedstawiane jako oficjalne wersje projektu.
+
+---
+
+## Oficjalna strona
+
+Pełna dokumentacja oraz informacje dotyczące BakuBota:
+
+**[Dokumentacja BakuBot](https://sitefox.gitbook.io/bakubot-1)**
+
+> **Uwaga:** dokumentacja jest obecnie w trakcie aktualizacji.
+
+---
+
+## Najważniejsze funkcje
+
+### Discord
+- Zmiana planu bezpośrednio z poziomu Discorda
 - Automatyczne powiadomienia na Discordzie
-- Automatyczne powiadomienie `@everyone`
+- Automatyczne oznaczanie `@everyone`
 - Informacja o osobie, która zmieniła plan
 - Obsługa wielu serwerów Discord
-- Integracja z [Xayoo.pl](https://www.xayo.pl)
-- Obsługa wielu kanałów powiadomień Discord
-- Informacje o grach ze Steam
+- Obsługa wielu kanałów powiadomień
+
+### Twitch
+- Integracja z Twitch
 - Wyszukiwanie logów wiadomości użytkowników Twitcha
-- Integracja z Discordem, StreamElements i Twitch
+- Integracja z planem streamera
+- Automatyczna synchronizacja informacji
+
+### StreamElements
+- Zmiana planu przez StreamElements
+- Automatyczne zapisywanie planu
+- Automatyczna synchronizacja planu
   
-## [Schemat działania](assets/Diagram.md)
+---
 
-Chcesz uruchomić BakuBot na swoim serwerze?  
-Pełna instrukcja instalacji i konfiguracji znajduje się tutaj:
+## Jak działa BakuBot?
 
-# [Instalacja i konfiguracja](assets/Guide.md)
+BakuBot łączy kilka usług w jeden system, automatyzując przepływ informacji pomiędzy nimi.
+
+Szczegółowy schemat działania znajduje się tutaj:
+
+**[Architektura](assets/Diagram.md)**
+
+---
+# Wymagania
+
+Przed instalacją upewnij się, że masz dostęp do wymaganych usług oraz odpowiednich danych uwierzytelniających.
+
+BakuBot wykorzystuje integracje z:
+- [Discord](https://discord.com/)
+- [Twitch](https://www.twitch.tv/?lang=pl)
+- [StreamElements](https://streamelements.com)
+- [Steam](https://store.steampowered.com/)
+  
+---
+
+# Instalacja i konfiguracja
+
+Chcesz uruchomić BakuBot na swoim serwerze?
+
+Pełna instrukcja instalacji, konfiguracji oraz wymaganych ustawień znajduje się tutaj:
+
+**[Instalacja i konfiguracja](assets/Guide.md)**
 
 ![Zdjęcie](assets/IMG_7186.png)
+
+## Wkład w projekt
+
+BakuBot jest projektem open source i zapraszamy do zgłaszania błędów, propozycji oraz tworzenia Pull Requestów.
+
+Przed rozpoczęciem pracy nad kodem zapoznaj się z:
+
+**[CONTRIBUTING.md](CONTRIBUTING.md)**
+
+Problemy związane z bezpieczeństwem należy zgłaszać zgodnie z:
+
+**[SECURITY.md](SECURITY.md)**
+
+---
+
+## Roadmap
+
+Planowany rozwój projektu może obejmować kolejne funkcje oraz usprawnienia integracji z wykorzystywanymi usługami.
+
+Aktualne propozycje i pomysły można zgłaszać w sekcji Issues projektu.
+
+---
+
+## Licencja
+
+BakuBot jest udostępniany na licencji **GNU General Public License v3.0**.
+
+Pełny tekst licencji znajduje się w pliku:
+
+**[LICENSE](LICENSE)**
+
+---
+
+## Copyright
+
+```
+Copyright © 2026 sitefox69
+
+BakuBot jest wolnym oprogramowaniem udostępnianym na warunkach licencji GNU General Public License v3.0.
+```​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​
