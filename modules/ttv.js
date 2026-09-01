@@ -1,4 +1,4 @@
-function createTTVLink(streamer, user) {
+function createTTVLink(streamer, user) { 
   return `https://tv.supa.sh/logs?c=${encodeURIComponent(streamer)}&u=${encodeURIComponent(user)}`;
 }
 
