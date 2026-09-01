@@ -157,10 +157,6 @@ async function createXayoResponse(
   return formatTop3(data);
 }
 
-/* ==========================================
-   STREAM ELEMENTS / HTTP
-========================================== */
-
 export async function handle(
   request,
   env
@@ -225,10 +221,6 @@ export async function handle(
     );
   }
 }
-
-/* ==========================================
-   DISCORD /xayoo
-========================================== */
 
 export async function handleDiscord(
   data,
