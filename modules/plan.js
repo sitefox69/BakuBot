@@ -34,9 +34,7 @@ async function savePlan(env, text) {
   );
   return clean;
 }
-/* ==========================================
-   DISCORD — WYSYŁANIE NA WSZYSTKIE KANAŁY
-========================================== */
+
 async function sendPlanToDiscord(
   env,
   text,
@@ -99,9 +97,7 @@ async function sendPlanToDiscord(
     )
   );
 }
-/* ==========================================
-   DISCORD /plan
-========================================== */
+
 export async function handleDiscord(
   data,
   env
@@ -140,11 +136,7 @@ export async function handleDiscord(
       env,
       clean
     );
-    /*
-     * Pusta odpowiedź ephemeral.
-     * Użytkownik nie dostaje komunikatu
-     * na kanale Discorda.
-     */
+
     return Response.json({
       type: 4,
       data: {
@@ -168,9 +160,7 @@ export async function handleDiscord(
     });
   }
 }
-/* ==========================================
-   HTTP
-========================================== */
+
 export async function handle(
   request,
   env,
@@ -178,9 +168,7 @@ export async function handle(
 ) {
   const url =
     new URL(request.url);
-  /* ----------------------------------------
-     GET /plan
-  ---------------------------------------- */
+
   if (
     request.method === "GET" &&
     url.pathname === "/plan" &&
@@ -217,10 +205,7 @@ export async function handle(
       );
     }
   }
-  /* ----------------------------------------
-     GET /zmiana
-     StreamElements
-  ---------------------------------------- */
+
   if (
     request.method === "GET" &&
     url.pathname === "/zmiana"
@@ -258,19 +243,13 @@ export async function handle(
       );
     }
     try {
-      /*
-       * Zapisujemy plan.
-       */
+  
       const clean =
         await savePlan(
           env,
           text
         );
-      /*
-       * Discord wysyłamy w tle.
-       * StreamElements nie musi
-       * czekać na Discord API.
-       */
+ 
       if (
         ctx &&
         typeof ctx.waitUntil ===
