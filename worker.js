@@ -263,14 +263,7 @@ async function editOriginalResponse(
     );
   }
 }
-/*
- * Usuwa oryginalną odpowiedź
- * interakcji Discord.
- *
- * Używane dla /plan,
- * żeby użytkownik nie dostawał
- * żadnej dodatkowej wiadomości.
- */
+
 async function deleteOriginalResponse(
   env,
   interactionToken
@@ -316,7 +309,7 @@ async function handleDiscordInteraction(
   env,
   ctx
 ) {
-  /* PING */
+ 
   if (data.type === 1) {
     return Response.json({
       type: 1,
@@ -332,15 +325,11 @@ async function handleDiscordInteraction(
       },
     });
   }
-  /*
-   * Sprawdzamy, czy to /plan.
-   */
+
   const isPlanCommand =
     data?.data?.name ===
     "plan";
-  /*
-   * Wykonujemy moduł w tle.
-   */
+
   ctx.waitUntil(
     (async () => {
       try {
@@ -358,16 +347,7 @@ async function handleDiscordInteraction(
           );
           return;
         }
-        /*
-         * /plan:
-         *
-         * Moduł zapisuje plan
-         * i wysyła wiadomość na Discord.
-         *
-         * Po zakończeniu usuwamy
-         * tymczasową odpowiedź
-         * interakcji.
-         */
+  
         if (isPlanCommand) {
           await deleteOriginalResponse(
             env,
@@ -375,10 +355,7 @@ async function handleDiscordInteraction(
           );
           return;
         }
-        /*
-         * Pozostałe komendy
-         * działają tak jak wcześniej.
-         */
+   
         const json =
           await result.json();
         const content =
@@ -401,13 +378,7 @@ async function handleDiscordInteraction(
           "Discord module error:",
           error
         );
-        /*
-         * Jeżeli /plan się wywali,
-         * pokazujemy błąd użytkownikowi.
-         *
-         * Dzięki temu wiadomo,
-         * że zmiana planu się nie udała.
-         */
+
         if (isPlanCommand) {
           await editOriginalResponse(
             env,
@@ -424,14 +395,7 @@ async function handleDiscordInteraction(
       }
     })()
   );
-  /*
-   * Discord wymaga potwierdzenia
-   * interakcji.
-   *
-   * Dla /plan jest to tylko
-   * tymczasowa odpowiedź, która
-   * zostanie później usunięta.
-   */
+
   return Response.json({
     type: 5,
   });
@@ -479,18 +443,14 @@ export default {
       url.pathname;
     const cfg =
       getConfig(env);
-    /*
-     * CONFIG CHECK
-     */
+ 
     if (
       pathname ===
       "/config-check"
     ) {
       return configCheck(env);
     }
-    /*
-     * REGISTER COMMANDS
-     */
+
     if (
       pathname ===
       "/register-plan"
@@ -537,9 +497,7 @@ export default {
         results
       );
     }
-    /*
-     * DISCORD
-     */
+ 
     if (
       pathname === "/discord" &&
       request.method === "POST"
@@ -578,9 +536,7 @@ export default {
         ctx
       );
     }
-    /*
-     * HTTP MODULES
-     */
+
     try {
       const response =
         await handleModules(
