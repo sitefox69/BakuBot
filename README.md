@@ -1,5 +1,4 @@
 # BakuBot
-**Open Source**
 
 ![Zdjęcie](assets/IMG_7190.png)
 
