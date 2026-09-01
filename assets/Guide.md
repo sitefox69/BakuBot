@@ -200,6 +200,7 @@ Podczas tworzenia zaproszenia wybierz odpowiednie zakresy:
 
 - `bot`
 - `applications.commands`
+- `admin`
 
 ## 9. Integracja ze StreamElements
 
