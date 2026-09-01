@@ -2,50 +2,47 @@ import {
   handleModules,
   handleDiscordModules,
 } from "./modules/index.js";
-
 const encoder = new TextEncoder();
-
 function getConfig(env) {
   return {
     applicationId: env.APPLICATION_ID,
     publicKey: env.DISCORD_PUBLIC_KEY,
     token: env.DISCORD_TOKEN,
-
     guildIds: (env.GUILD_IDS || "")
       .split(",")
       .map(x => x.trim())
       .filter(Boolean),
-
     channelIds: (env.CHANNEL_IDS || "")
       .split(",")
       .map(x => x.trim())
       .filter(Boolean),
   };
 }
-
 function hexToBytes(hex) {
   if (!hex || hex.length % 2 !== 0) {
     throw new Error("Nieprawidłowy HEX.");
   }
-
-  const bytes = new Uint8Array(hex.length / 2);
-
-  for (let i = 0; i < hex.length; i += 2) {
+  const bytes = new Uint8Array(
+    hex.length / 2
+  );
+  for (
+    let i = 0;
+    i < hex.length;
+    i += 2
+  ) {
     const value = parseInt(
       hex.slice(i, i + 2),
       16
     );
-
     if (Number.isNaN(value)) {
-      throw new Error("Nieprawidłowy HEX.");
+      throw new Error(
+        "Nieprawidłowy HEX."
+      );
     }
-
     bytes[i / 2] = value;
   }
-
   return bytes;
 }
-
 async function verifyDiscordRequest(
   request,
   body,
@@ -55,16 +52,17 @@ async function verifyDiscordRequest(
     request.headers.get(
       "X-Signature-Ed25519"
     );
-
   const timestamp =
     request.headers.get(
       "X-Signature-Timestamp"
     );
-
-  if (!signature || !timestamp || !publicKey) {
+  if (
+    !signature ||
+    !timestamp ||
+    !publicKey
+  ) {
     return false;
   }
-
   try {
     const key =
       await crypto.subtle.importKey(
@@ -76,82 +74,78 @@ async function verifyDiscordRequest(
         false,
         ["verify"]
       );
-
     return await crypto.subtle.verify(
       "Ed25519",
       key,
       hexToBytes(signature),
-      encoder.encode(timestamp + body)
+      encoder.encode(
+        timestamp + body
+      )
     );
   } catch (error) {
     console.error(
       "Discord verification error:",
       error
     );
-
     return false;
   }
 }
-
 function getCommands() {
   return [
     {
       name: "plan",
-      description: "Ustawia tekst dla Twitcha",
-
+      description:
+        "Ustawia tekst dla Twitcha",
       default_member_permissions: "8",
-
       options: [
         {
           name: "text",
-          description: "Tekst do zapisania",
+          description:
+            "Tekst do zapisania",
           type: 3,
           required: true,
         },
       ],
     },
-
     {
       name: "log",
       description:
         "Wyszukuje wiadomości widza na streamie",
-
       options: [
         {
           name: "stream",
-          description: "Nazwa streamera",
+          description:
+            "Nazwa streamera",
           type: 3,
           required: true,
         },
         {
           name: "user",
-          description: "Nazwa widza",
+          description:
+            "Nazwa widza",
           type: 3,
           required: true,
         },
       ],
     },
-
     {
       name: "gra",
       description:
         "Sprawdza informacje o grze na Steam",
-
       options: [
         {
           name: "game",
-          description: "Nazwa gry",
+          description:
+            "Nazwa gry",
           type: 3,
           required: true,
         },
       ],
     },
-
     {
       name: "xayoo",
       description:
         "Pokazuje czas oglądania widza",
-
       options: [
         {
           name: "nick",
@@ -160,7 +154,6 @@ function getCommands() {
           type: 3,
           required: true,
         },
-
         {
           name: "viewer",
           description:
@@ -172,95 +165,90 @@ function getCommands() {
     },
   ];
 }
-
 async function registerCommands(
   env,
   guildId
 ) {
   const cfg = getConfig(env);
-
-  if (!cfg.applicationId || !cfg.token) {
+  if (
+    !cfg.applicationId ||
+    !cfg.token
+  ) {
     return {
       status: 500,
       body:
         "Brakuje APPLICATION_ID lub DISCORD_TOKEN.",
     };
   }
-
   try {
-    const response = await fetch(
-      `https://discord.com/api/v10/applications/${cfg.applicationId}/guilds/${guildId}/commands`,
-      {
-        method: "PUT",
-
-        headers: {
-          Authorization:
-            `Bot ${cfg.token}`,
-
-          "Content-Type":
-            "application/json",
-        },
-
-        body: JSON.stringify(
-          getCommands()
-        ),
-      }
-    );
-
+    const response =
+      await fetch(
+        `https://discord.com/api/v10/applications/${cfg.applicationId}/guilds/${guildId}/commands`,
+        {
+          method: "PUT",
+          headers: {
+            Authorization:
+              `Bot ${cfg.token}`,
+            "Content-Type":
+              "application/json",
+          },
+          body: JSON.stringify(
+            getCommands()
+          ),
+        }
+      );
     return {
-      status: response.status,
-      body: await response.text(),
+      status:
+        response.status,
+      body:
+        await response.text(),
     };
   } catch (error) {
     console.error(
       "Register commands error:",
       error
     );
-
     return {
       status: 500,
       body: String(error),
     };
   }
 }
-
 async function editOriginalResponse(
   env,
   interactionToken,
   content
 ) {
   const cfg = getConfig(env);
-
-  if (!cfg.applicationId || !interactionToken) {
+  if (
+    !cfg.applicationId ||
+    !interactionToken
+  ) {
     return;
   }
-
   const url =
     `https://discord.com/api/v10/webhooks/` +
     `${cfg.applicationId}/` +
     `${interactionToken}/messages/@original`;
-
   try {
-    const response = await fetch(
-      url,
-      {
-        method: "PATCH",
-
-        headers: {
-          "Content-Type":
-            "application/json",
-        },
-
-        body: JSON.stringify({
-          content:
-            String(
-              content ||
-                "Brak odpowiedzi."
-            ).slice(0, 2000),
-        }),
-      }
-    );
-
+    const response =
+      await fetch(
+        url,
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type":
+              "application/json",
+          },
+          body: JSON.stringify({
+            content:
+              String(
+                content ||
+                  "Brak odpowiedzi."
+              ).slice(0, 2000),
+          }),
+        }
+      );
     if (!response.ok) {
       console.error(
         "Discord edit response:",
@@ -275,25 +263,68 @@ async function editOriginalResponse(
     );
   }
 }
-
-
+/*
+ * Usuwa oryginalną odpowiedź
+ * interakcji Discord.
+ *
+ * Używane dla /plan,
+ * żeby użytkownik nie dostawał
+ * żadnej dodatkowej wiadomości.
+ */
+async function deleteOriginalResponse(
+  env,
+  interactionToken
+) {
+  const cfg = getConfig(env);
+  if (
+    !cfg.applicationId ||
+    !interactionToken
+  ) {
+    return;
+  }
+  const url =
+    `https://discord.com/api/v10/webhooks/` +
+    `${cfg.applicationId}/` +
+    `${interactionToken}/messages/@original`;
+  try {
+    const response =
+      await fetch(
+        url,
+        {
+          method: "DELETE",
+        }
+      );
+    if (
+      !response.ok &&
+      response.status !== 404
+    ) {
+      console.error(
+        "Discord delete response:",
+        response.status,
+        await response.text()
+      );
+    }
+  } catch (error) {
+    console.error(
+      "Discord delete error:",
+      error
+    );
+  }
+}
 async function handleDiscordInteraction(
   data,
   env,
   ctx
 ) {
   /* PING */
-
   if (data.type === 1) {
     return Response.json({
       type: 1,
     });
   }
-
   if (data.type !== 2) {
     return Response.json({
       type: 4,
-
       data: {
         content:
           "Nieobsługiwana interakcja.",
@@ -301,44 +332,90 @@ async function handleDiscordInteraction(
       },
     });
   }
-
+  /*
+   * Sprawdzamy, czy to /plan.
+   */
+  const isPlanCommand =
+    data?.data?.name ===
+    "plan";
+  /*
+   * Wykonujemy moduł w tle.
+   */
   ctx.waitUntil(
     (async () => {
       try {
         const result =
           await handleDiscordModules(
             data,
-            env
+            env,
+            ctx
           );
-
         if (!result) {
           await editOriginalResponse(
             env,
             data.token,
             "Nieznana komenda."
           );
-
           return;
         }
-
+        /*
+         * /plan:
+         *
+         * Moduł zapisuje plan
+         * i wysyła wiadomość na Discord.
+         *
+         * Po zakończeniu usuwamy
+         * tymczasową odpowiedź
+         * interakcji.
+         */
+        if (isPlanCommand) {
+          await deleteOriginalResponse(
+            env,
+            data.token
+          );
+          return;
+        }
+        /*
+         * Pozostałe komendy
+         * działają tak jak wcześniej.
+         */
         const json =
           await result.json();
-
         const content =
           json?.data?.content;
-
-        await editOriginalResponse(
-          env,
-          data.token,
-          content ||
+        if (content) {
+          await editOriginalResponse(
+            env,
+            data.token,
+            content
+          );
+        } else {
+          await editOriginalResponse(
+            env,
+            data.token,
             "Nie udało się uzyskać odpowiedzi."
-        );
+          );
+        }
       } catch (error) {
         console.error(
           "Discord module error:",
           error
         );
-
+        /*
+         * Jeżeli /plan się wywali,
+         * pokazujemy błąd użytkownikowi.
+         *
+         * Dzięki temu wiadomo,
+         * że zmiana planu się nie udała.
+         */
+        if (isPlanCommand) {
+          await editOriginalResponse(
+            env,
+            data.token,
+            "Nie udało się zmienić planu."
+          );
+          return;
+        }
         await editOriginalResponse(
           env,
           data.token,
@@ -347,44 +424,49 @@ async function handleDiscordInteraction(
       }
     })()
   );
-
+  /*
+   * Discord wymaga potwierdzenia
+   * interakcji.
+   *
+   * Dla /plan jest to tylko
+   * tymczasowa odpowiedź, która
+   * zostanie później usunięta.
+   */
   return Response.json({
     type: 5,
   });
 }
-
 async function configCheck(
   env
 ) {
   const cfg = getConfig(env);
-
   return Response.json({
     applicationConfigured:
-      Boolean(cfg.applicationId),
-
+      Boolean(
+        cfg.applicationId
+      ),
     publicKeyConfigured:
-      Boolean(cfg.publicKey),
-
+      Boolean(
+        cfg.publicKey
+      ),
     tokenConfigured:
       Boolean(cfg.token),
-
     guildsConfigured:
       cfg.guildIds.length > 0,
-
     channelsConfigured:
       cfg.channelIds.length > 0,
-
     kvConfigured:
       Boolean(env.PARIS),
-
     setupSecretConfigured:
-      Boolean(env.SETUP_SECRET),
-
+      Boolean(
+        env.SETUP_SECRET
+      ),
     moderatorSecretConfigured:
-      Boolean(env.MODERATOR_SECRET),
+      Boolean(
+        env.MODERATOR_SECRET
+      ),
   });
 }
-
 export default {
   async fetch(
     request,
@@ -393,30 +475,34 @@ export default {
   ) {
     const url =
       new URL(request.url);
-
     const pathname =
       url.pathname;
-
     const cfg =
       getConfig(env);
-
+    /*
+     * CONFIG CHECK
+     */
     if (
-      pathname === "/config-check"
+      pathname ===
+      "/config-check"
     ) {
       return configCheck(env);
     }
-
+    /*
+     * REGISTER COMMANDS
+     */
     if (
-      pathname === "/register-plan"
+      pathname ===
+      "/register-plan"
     ) {
       const secret =
         url.searchParams.get(
           "secret"
         );
-
       if (
         !env.SETUP_SECRET ||
-        secret !== env.SETUP_SECRET
+        secret !==
+          env.SETUP_SECRET
       ) {
         return new Response(
           "Brak uprawnień.",
@@ -425,9 +511,9 @@ export default {
           }
         );
       }
-
       if (
-        cfg.guildIds.length === 0
+        cfg.guildIds.length ===
+        0
       ) {
         return new Response(
           "Brak GUILD_IDS.",
@@ -436,9 +522,7 @@ export default {
           }
         );
       }
-
       const results = {};
-
       for (
         const guildId
         of cfg.guildIds
@@ -449,26 +533,25 @@ export default {
             guildId
           );
       }
-
       return Response.json(
         results
       );
     }
-
+    /*
+     * DISCORD
+     */
     if (
       pathname === "/discord" &&
       request.method === "POST"
     ) {
       const body =
         await request.text();
-
       const valid =
         await verifyDiscordRequest(
           request,
           body,
           cfg.publicKey
         );
-
       if (!valid) {
         return new Response(
           "Invalid request signature",
@@ -477,9 +560,7 @@ export default {
           }
         );
       }
-
       let data;
-
       try {
         data =
           JSON.parse(body);
@@ -491,21 +572,22 @@ export default {
           }
         );
       }
-
       return handleDiscordInteraction(
         data,
         env,
         ctx
       );
     }
-
+    /*
+     * HTTP MODULES
+     */
     try {
       const response =
         await handleModules(
           request,
-          env
+          env,
+          ctx
         );
-
       if (response) {
         return response;
       }
@@ -514,7 +596,6 @@ export default {
         "Module HTTP error:",
         error
       );
-
       return new Response(
         "Błąd modułu.",
         {
@@ -522,7 +603,6 @@ export default {
         }
       );
     }
-
     return new Response(
       "Nieznany endpoint.",
       {
@@ -530,4 +610,4 @@ export default {
       }
     );
   },
-}; 
+};
