@@ -165,11 +165,6 @@ async function createSteamResponse(query) {
   return createSteamMessage(game, reviews);
 }
 
-
-// ==========================================
-// HTTP / StreamElements
-// ==========================================
-
 export async function handle(request, env) {
   const url = new URL(request.url);
 
@@ -215,10 +210,6 @@ export async function handle(request, env) {
   }
 }
 
-
-// ==========================================
-// Discord /gra
-// ==========================================
 
 export async function handleDiscord(data, env) {
   if (data.type !== 2 || data.data?.name !== "gra") {
