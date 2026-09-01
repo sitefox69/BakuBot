@@ -1,4 +1,8 @@
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
+
 # BakuBot
+
+![Zdjęcie](assets/IMG_7190.png)
 
 BakuBot to bot integrujący Discord, Twitch oraz StreamElements, którego celem jest automatyzacja zarządzania informacjami i komunikacją społeczności streamera.
 
@@ -83,7 +87,7 @@ Pełna instrukcja instalacji, konfiguracji oraz wymaganych ustawień znajduje si
 
 **[Instalacja i konfiguracja](link)**
 
----
+![Zdjęcie](assets/IMG_7186.png)
 
 ## Wkład w projekt
 
