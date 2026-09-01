@@ -35,7 +35,7 @@ Pełna dokumentacja oraz informacje dotyczące BakuBota:
 ### Discord
 - Zmiana planu bezpośrednio z poziomu Discorda
 - Automatyczne powiadomienia na Discordzie
-- Automatyczne oznaczanie @everyone
+- Automatyczne oznaczanie `@everyone`
 - Informacja o osobie, która zmieniła plan
 - Obsługa wielu serwerów Discord
 - Obsługa wielu kanałów powiadomień
@@ -50,12 +50,7 @@ Pełna dokumentacja oraz informacje dotyczące BakuBota:
 - Zmiana planu przez StreamElements
 - Automatyczne zapisywanie planu
 - Automatyczna synchronizacja planu
-
-### Pozostałe
-- Informacje o grach ze Steam
-- Integracja z Xayoo.pl
-- Integracja z Discordem, Twitch i StreamElements
-
+  
 ---
 
 ## Jak działa BakuBot?
@@ -64,7 +59,7 @@ BakuBot łączy kilka usług w jeden system, automatyzując przepływ informacji
 
 Szczegółowy schemat działania znajduje się tutaj:
 
-**[Schemat działania](assets/Diagram.md)**
+**[Architektura](assets/Diagram.md)**
 
 ---
 # Wymagania
@@ -72,10 +67,10 @@ Szczegółowy schemat działania znajduje się tutaj:
 Przed instalacją upewnij się, że masz dostęp do wymaganych usług oraz odpowiednich danych uwierzytelniających.
 
 BakuBot wykorzystuje integracje z:
-- Discord
-- Twitch
-- StreamElements
-- Steam
+- [Discord](https://discord.com/)
+- [Twitch](https://www.twitch.tv/?lang=pl)
+- [StreamElements](https://streamelements.com)
+- [Steam](https://store.steampowered.com/)
   
 ---
 
