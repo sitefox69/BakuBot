@@ -118,8 +118,7 @@ Pełny tekst licencji znajduje się w pliku:
 
 ## Copyright
 
-```
-Copyright © 2026 sitefox69
 
-BakuBot jest wolnym oprogramowaniem udostępnianym na warunkach licencji GNU General Public License v3.0.
-```​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​
+> Copyright © 2026 sitefox69
+> 
+> BakuBot jest wolnym oprogramowaniem udostępnianym na warunkach licencji GNU General Public License v3.0.
