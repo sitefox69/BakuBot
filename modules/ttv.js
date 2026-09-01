@@ -5,7 +5,6 @@ function createTTVLink(streamer, user) {
 export async function handle(request, env) {
   const url = new URL(request.url);
 
-  // Endpoint HTTP dla StreamElements
   if (url.pathname === "/log") {
     const streamer = url.searchParams.get("stream")?.trim();
     const user = url.searchParams.get("user")?.trim();
@@ -31,7 +30,7 @@ export async function handle(request, env) {
 }
 
 export async function handleDiscord(data, env) {
-  // Obsługujemy /log
+ 
   if (data.type !== 2 || data.data?.name !== "log") {
     return null;
   }
