@@ -1,4 +1,4 @@
-### Uwaga dotycząca VS Code / TypeScript
+### ⚠️ Uwaga dotycząca VS Code / TypeScript ⚠️
 
 Jeżeli podczas edycji plików `.js` w VS Code pojawi się czerwone podkreślenie przy przekazywaniu `ctx` lub komunikat:
 
