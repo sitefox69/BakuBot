@@ -232,6 +232,9 @@ Dzięki temu StreamElements może wysyłać zapytania do Workera, a otrzymaną o
 
 ### Zmiana planu z StreamElements
 
+> **Uwaga:** W StreamElements możesz nadać tym komendom dowolne nazwy.  
+> `!zmiana` podobnie jak pozostałe, jest tutaj jedynie przykładową nazwą komendy.
+
 Do zmiany planu użyj:
 
 ```text
