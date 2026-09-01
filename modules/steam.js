@@ -210,6 +210,7 @@ export async function handle(request, env) {
   }
 }
 
+
 export async function handleDiscord(data, env) {
   if (data.type !== 2 || data.data?.name !== "gra") {
     return null;

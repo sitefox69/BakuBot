@@ -1,84 +1,101 @@
 const PLAN_KEY = "plan";
-
-function getPlanChannelId(env) {
-  if (env.PLAN_CHANNEL_ID) {
-    return env.PLAN_CHANNEL_ID.trim();
-  }
-
+function getPlanChannelIds(env) {
   const channels = (env.CHANNEL_IDS || "")
     .split(",")
     .map(x => x.trim())
     .filter(Boolean);
-
-  return channels[0] || null;
+  if (
+    channels.length === 0 &&
+    env.PLAN_CHANNEL_ID
+  ) {
+    channels.push(
+      env.PLAN_CHANNEL_ID.trim()
+    );
+  }
+  return [...new Set(channels)]
+    .filter(Boolean);
 }
-
 function cleanPlan(text) {
   return String(text || "")
     .replace(/@everyone/gi, "")
     .trim();
 }
-
 async function savePlan(env, text) {
   if (!env.PARIS) {
-    throw new Error("Brak KV PARIS.");
+    throw new Error(
+      "Brak KV PARIS."
+    );
   }
-
-  const clean = cleanPlan(text);
-
+  const clean =
+    cleanPlan(text);
   await env.PARIS.put(
     PLAN_KEY,
     clean
   );
-
   return clean;
 }
 
-async function sendPlanToDiscord(env, text) {
+async function sendPlanToDiscord(
+  env,
+  text,
+  user = null
+) {
   if (!env.DISCORD_TOKEN) {
-    throw new Error("Brak DISCORD_TOKEN.");
-  }
-
-  const channelId =
-    getPlanChannelId(env);
-
-  if (!channelId) {
     throw new Error(
-      "Brak PLAN_CHANNEL_ID lub CHANNEL_IDS."
+      "Brak DISCORD_TOKEN."
     );
   }
-
-  const response = await fetch(
-    `https://discord.com/api/v10/channels/${channelId}/messages`,
-    {
-      method: "POST",
-
-      headers: {
-        Authorization:
-          `Bot ${env.DISCORD_TOKEN}`,
-
-        "Content-Type":
-          "application/json"
-      },
-
-      body: JSON.stringify({
-        content: `**@everyone ${text}**`,
-
-        allowed_mentions: {
-          parse: ["everyone"]
+  const channelIds =
+    getPlanChannelIds(env);
+  if (channelIds.length === 0) {
+    throw new Error(
+      "Brak CHANNEL_IDS lub PLAN_CHANNEL_ID."
+    );
+  }
+  let message;
+  if (user) {
+    message =
+      `@everyone\n` +
+      `Plan został zmieniony przez: *${user}*\n` +
+      `**${text}**`;
+  } else {
+    message =
+      `@everyone\n` +
+      `**${text}**`;
+  }
+  await Promise.all(
+    channelIds.map(
+      async (channelId) => {
+        const response =
+          await fetch(
+            `https://discord.com/api/v10/channels/${channelId}/messages`,
+            {
+              method: "POST",
+              headers: {
+                Authorization:
+                  `Bot ${env.DISCORD_TOKEN}`,
+                "Content-Type":
+                  "application/json"
+              },
+              body: JSON.stringify({
+                content: message,
+                allowed_mentions: {
+                  parse: ["everyone"]
+                }
+              })
+            }
+          );
+        if (!response.ok) {
+          const error =
+            await response.text();
+          throw new Error(
+            `Discord kanał ${channelId}: HTTP ${response.status}: ${error}`
+          );
         }
-      })
-    }
+        return channelId;
+      }
+    )
   );
-
-  if (!response.ok) {
-    const error =
-      await response.text();
-
-    throw new Error(
-      `Discord HTTP ${response.status}: ${error}`
-    );
-  }
 }
 
 export async function handleDiscord(
@@ -91,7 +108,6 @@ export async function handleDiscord(
   ) {
     return null;
   }
-
   const text =
     data.data.options
       ?.find(
@@ -100,37 +116,33 @@ export async function handleDiscord(
       )
       ?.value
       ?.trim();
-
   if (!text) {
     return Response.json({
       type: 4,
-
       data: {
         content:
-          "Podaj tekst planu.",
-
+          "\u200B",
         flags: 64
       }
     });
   }
-
   try {
     const clean =
       await savePlan(
         env,
         text
       );
+    await sendPlanToDiscord(
+      env,
+      clean
+    );
 
     return Response.json({
       type: 4,
-
       data: {
         content:
-          `**@everyone ${clean}**`,
-
-        allowed_mentions: {
-          parse: ["everyone"]
-        }
+          "\u200B",
+        flags: 64
       }
     });
   } catch (error) {
@@ -138,14 +150,11 @@ export async function handleDiscord(
       "PLAN DISCORD ERROR:",
       error
     );
-
     return Response.json({
       type: 4,
-
       data: {
         content:
           "Nie udało się zapisać planu.",
-
         flags: 64
       }
     });
@@ -154,7 +163,8 @@ export async function handleDiscord(
 
 export async function handle(
   request,
-  env
+  env,
+  ctx
 ) {
   const url =
     new URL(request.url);
@@ -169,16 +179,14 @@ export async function handle(
         await env.PARIS.get(
           PLAN_KEY
         );
-
       return new Response(
-        plan || "Brak ustawionego planu.",
+        plan ||
+          "Brak ustawionego planu.",
         {
           status: 200,
-
           headers: {
             "Content-Type":
               "text/plain; charset=utf-8",
-
             "Cache-Control":
               "no-store"
           }
@@ -189,7 +197,6 @@ export async function handle(
         "PLAN GET ERROR:",
         error
       );
-
       return new Response(
         "Błąd pobierania planu.",
         {
@@ -207,17 +214,15 @@ export async function handle(
       url.searchParams.get(
         "secret"
       );
-
     const text =
-      url.searchParams.get(
-        "text"
-      )?.trim();
-
+      url.searchParams
+        .get("text")
+        ?.trim();
     const user =
-      url.searchParams.get(
-        "user"
-      ) || "";
-
+      url.searchParams
+        .get("user")
+        ?.trim() ||
+      "Nieznany użytkownik";
     if (
       !env.MODERATOR_SECRET ||
       secret !== env.MODERATOR_SECRET
@@ -229,7 +234,6 @@ export async function handle(
         }
       );
     }
-
     if (!text) {
       return new Response(
         "Podaj tekst.",
@@ -238,32 +242,48 @@ export async function handle(
         }
       );
     }
-
     try {
+  
       const clean =
         await savePlan(
           env,
           text
         );
-
-      await sendPlanToDiscord(
-        env,
-        clean
-      );
-
+ 
+      if (
+        ctx &&
+        typeof ctx.waitUntil ===
+          "function"
+      ) {
+        ctx.waitUntil(
+          sendPlanToDiscord(
+            env,
+            clean,
+            user
+          ).catch(error => {
+            console.error(
+              "PLAN DISCORD BACKGROUND ERROR:",
+              error
+            );
+          })
+        );
+      } else {
+        await sendPlanToDiscord(
+          env,
+          clean,
+          user
+        );
+      }
       console.log(
         `Plan zmieniony przez SE: ${user}`
       );
-
       return new Response(
         clean,
         {
           status: 200,
-
           headers: {
             "Content-Type":
               "text/plain; charset=utf-8",
-
             "Cache-Control":
               "no-store"
           }
@@ -274,7 +294,6 @@ export async function handle(
         "PLAN ZMIANA ERROR:",
         error
       );
-
       return new Response(
         "Nie udało się zmienić planu.",
         {
@@ -283,6 +302,5 @@ export async function handle(
       );
     }
   }
-
   return null;
 }
