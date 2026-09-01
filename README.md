@@ -2,6 +2,13 @@
 
 ![Zdjęcie](assets/IMG_7190.png)
 
+## Official Project
+
+This repository is the official BakuBot project.
+
+"BakuBot" name, logo and other project branding are not
+licensed under the GPL-3.0 license unless explicitly stated otherwise.
+
 ## Oficjalna strona [Bota](https://sitefox.gitbook.io/bakubot-1) _jeszcze nie zaktualizowana._
 
 # Najważniejsze funkcje
