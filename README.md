@@ -6,7 +6,7 @@
 
 BakuBot to bot integrujący Discord, Twitch oraz StreamElements, którego celem jest automatyzacja zarządzania informacjami i komunikacją społeczności streamera.
 
-Projekt pozwala m.in. na zarządzanie planem streamów, automatyczne wysyłanie powiadomień oraz pobieranie wybranych informacji związanych z [Twitch](https://www.twitch.tv), [Steam](https://store.steampowered.com/app/872990/Stream_Games/?l=polish) oraz [Xayo.pl](https://www.xayo.pl/).
+Projekt pozwala m.in. na zarządzanie planem streamów, automatyczne wysyłanie powiadomień oraz pobieranie wybranych informacji związanych z **Twitch**, **Steam** oraz **Xayo.pl**.
 
 ---
 
