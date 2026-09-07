@@ -3,7 +3,7 @@ import * as steam from "./steam.js";
 import * as xayo from "./xayo.js";
 import * as plan from "./plan.js";
 import * as bakurequest from "./bakurequest.js";
-
+import * as soundboard from "./soundboard.js";
 
 const modules = [
   ttv,
@@ -11,8 +11,8 @@ const modules = [
   xayo,
   plan,
   bakurequest,
+  soundboard,
 ];
-
 
 export async function handleModules(
   request,
@@ -41,7 +41,6 @@ export async function handleModules(
 
   return null;
 }
-
 
 export async function handleDiscordModules(
   request,
